@@ -21,14 +21,11 @@
             --sent-bubble-start: #bbdefb;
             --sent-bubble-end: #90caf9;
             --narrador-bg: #e8f5e9;
-
             --chat-bg-color: #fcfcfc;
-
             --button-psicologo: #ff9800;
             --button-guia-espiritual: #4CAF50;
             --button-clear: #e57373;
             --button-pdf: #9e9e9e;
-
             --text-color: #333333;
             --light-text-color: #757575;
             --border-color: #e0e0e0;
@@ -141,7 +138,7 @@
             background: #9e9e9e;
         }
 
-        .message {
+        .mensaje {
             margin-bottom: 0.5rem;
             padding: 0.8rem 1.2rem;
             border-radius: 18px;
@@ -153,7 +150,7 @@
             position: relative;
         }
 
-        .message:hover {
+        .mensaje:hover {
             transform: scale(1.02);
             box-shadow: 0 3px 8px var(--shadow-medium);
         }
@@ -174,7 +171,7 @@
             border-bottom-right-radius: 5px;
         }
 
-        .message.sent {
+        .mensaje.sent {
             background-image: linear-gradient(to right, var(--sent-bubble-start), var(--sent-bubble-end));
             color: #333333;
             align-self: flex-start;
@@ -183,13 +180,13 @@
         }
 
 
-        .message strong {
+        .mensaje strong {
             font-weight: 700;
             margin-right: 0.3em;
             color: rgba(0, 0, 0, 0.7);
         }
 
-        .message.sent strong {
+        .mensaje.sent strong {
             color: rgba(0, 0, 0, 0.8);
         }
 
@@ -250,27 +247,27 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        #psychologistBtn {
+        #btnPsicologo {
             background-color: var(--button-psicologo);
         }
 
-        #psychologistBtn:hover:not(:disabled) {
+        #btnPsicologo:hover:not(:disabled) {
             background-color: #fb8c00;
         }
 
-        #spiritualGuideBtn {
+        #btnGuiaEspiritual {
             background-color: var(--button-guia-espiritual);
         }
 
-        #spiritualGuideBtn:hover:not(:disabled) {
+        #btnGuiaEspiritual:hover:not(:disabled) {
             background-color: #388e3c;
         }
 
-        #clearBtn {
+        #btnLimpiarChat {
             background-color: #757575;
         }
 
-        #clearBtn:hover:not(:disabled) {
+        #btnLimpiarChat:hover:not(:disabled) {
             background-color: #d32f2f;
         }
 
@@ -306,15 +303,12 @@
             0% {
                 content: '';
             }
-
             33% {
                 content: '.';
             }
-
             66% {
                 content: '..';
             }
-
             100% {
                 content: '...';
             }
@@ -325,12 +319,10 @@
                 transform: scale(1);
                 opacity: 1;
             }
-
             50% {
                 transform: scale(1.02);
                 opacity: 0.95;
             }
-
             100% {
                 transform: scale(1);
                 opacity: 1;
@@ -345,7 +337,7 @@
             padding-top: 5px;
         }
 
-        .message.sent .fecha {
+        .mensaje.sent .fecha {
             color: rgba(0, 0, 0, 0.6);
         }
 
@@ -358,7 +350,7 @@
         }
 
 
-        #initialMessage {
+        #mensajeInicial {
             text-align: center;
             color: var(--light-text-color);
             font-style: italic;
@@ -373,7 +365,7 @@
             box-sizing: border-box;
         }
 
-        #initialMessage i {
+        #mensajeInicial i {
             font-size: 2em;
             margin-bottom: 10px;
             color: #9e9e9e;
@@ -402,7 +394,7 @@
                 padding: 1rem;
             }
 
-            .message {
+            .mensaje {
                 max-width: 85%;
                 padding: 0.7rem 1rem;
                 font-size: 0.9rem;
@@ -439,7 +431,7 @@
                 border-radius: 10px;
             }
 
-            .message {
+            .mensaje {
                 max-width: 95%;
                 padding: 0.6rem 0.9rem;
                 font-size: 0.85rem;
@@ -460,16 +452,16 @@
         </div>
         <div id="chat-wrapper">
             <div id="chat">
-                <div id="initialMessage">
+                <div id="mensajeInicial">
                     <i class="fas fa-comment-dots"></i>
                     <span>Presiona un botón para iniciar la conversación.</span>
                 </div>
             </div>
         </div>
         <div id="buttons">
-            <button id="psychologistBtn"><i class="fas fa-brain"></i> Psicólogo Habla</button>
-            <button id="spiritualGuideBtn"><i class="fas fa-pray"></i> Guía Espiritual Habla</button>
-            <button id="clearBtn"><i class="fas fa-trash-alt"></i> Limpiar Chat</button>
+            <button id="btnPsicologo"><i class="fas fa-brain"></i> Psicólogo Habla</button>
+            <button id="btnGuiaEspiritual"><i class="fas fa-pray"></i> Guía Espiritual Habla</button>
+            <button id="btnLimpiarchat"><i class="fas fa-trash-alt"></i> Limpiar Chat</button>
             <button id="pdfBtn"><i class="fas fa-file-pdf"></i> Exportar a PDF</button>
         </div>
     </div>
@@ -477,30 +469,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         const chat = document.getElementById('chat');
-        const psychologistBtn = document.getElementById('psychologistBtn');
-        const spiritualGuideBtn = document.getElementById('spiritualGuideBtn');
-        const clearBtn = document.getElementById('clearBtn');
+        const btnPsicologo = document.getElementById('btnPsicologo');
+        const btnGuiaEspiritual = document.getElementById('btnGuiaEspiritual');
+        const btnLimpiarchat = document.getElementById('btnLimpiarChat');
         const pdfBtn = document.getElementById('pdfBtn');
-        const initialMessageDiv = document.getElementById('initialMessage');
-
+        const divMensajeInicial = document.getElementById('mensajeInicial');
         let lastSpeaker = null;
-        let conversationHasInitialMessages = false;
+        let conversacionConMensajesIniciales = false;
         const initialQuestionText = "¿Los sueños tienen un significado o son solo producto del cerebro?";
 
-        const introMessages = [
+        const mensajesPredeterminados = [
             "Hola, ¿cómo has estado?",
             "Quiero comentarte algo, hace poco hablé con un cliente que me hizo una pregunta muy interesante que me llevó tiempo responder.",
             "Por ello, quisiera saber tu opinión sobre ella y me gustaría saber qué habrías respondido tú."
         ];
 
-        function renderMessage(expert, message, timestamp = null, isSent = false) {
+        function renderMessage(experto, mensaje, timestamp = null, isSent = false) {
             const div = document.createElement('div');
-            div.classList.add('message');
+            div.classList.add('mensaje');
 
             if (isSent) {
                 div.classList.add('sent');
             } else {
-                div.classList.add(expert);
+                div.classList.add(experto);
             }
 
             let fechaFormateada = '';
@@ -514,29 +505,28 @@
                 fechaFormateada = `<div class="fecha">${dia}/${mes}/${anio} ${hora}:${minutos}</div>`;
             }
 
-            if (expert === 'narrador') {
+            if (experto === 'narrador') {
                 div.classList.add('narrador');
-                div.innerHTML = `<em>${message}</em>${fechaFormateada}`;
+                div.innerHTML = `<em>${mensaje}</em>${fechaFormateada}`;
             } else {
-                const expertName = expert === 'psicologo' ? 'Psicólogo' : 'Guía Espiritual';
-                div.innerHTML = `<strong>${expertName}:</strong> ${message}${fechaFormateada}`;
+                const expertName = experto === 'psicologo' ? 'Psicólogo' : 'Guía Espiritual';
+                div.innerHTML = `<strong>${expertName}:</strong> ${mensaje}${fechaFormateada}`;
             }
-
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
             reproducirSonido();
         }
 
-        function updateButtonStates() {
+        function actualizarEstadosBotones() {
             if (lastSpeaker === 'psicologo') {
-                psychologistBtn.disabled = true;
-                spiritualGuideBtn.disabled = false;
+                btnPsicologo.disabled = true;
+                btnGuiaEspiritual.disabled = false;
             } else if (lastSpeaker === 'guia_espiritual') {
-                psychologistBtn.disabled = false;
-                spiritualGuideBtn.disabled = true;
+                btnPsicologo.disabled = false;
+                btnGuiaEspiritual.disabled = true;
             } else {
-                psychologistBtn.disabled = false;
-                spiritualGuideBtn.disabled = false;
+                btnPsicologo.disabled = false;
+                btnGuiaEspiritual.disabled = false;
             }
         }
 
@@ -551,12 +541,12 @@
                 chat.innerHTML = '';
 
                 if (data.length === 0) {
-                    initialMessageDiv.style.display = 'flex';
-                    chat.appendChild(initialMessageDiv);
-                    conversationHasInitialMessages = false;
+                    divMensajeInicial.style.display = 'flex';
+                    chat.appendChild(divMensajeInicial);
+                    conversacionConMensajesIniciales = false;
                 } else {
-                    initialMessageDiv.style.display = 'none';
-                    conversationHasInitialMessages = true;
+                    divMensajeInicial.style.display = 'none';
+                    conversacionConMensajesIniciales = true;
                 }
 
                 data.forEach(({
@@ -568,22 +558,22 @@
                     renderMessage(experto, mensaje, fechaHora, isSent);
                     lastSpeaker = experto;
                 });
-                updateButtonStates();
+                actualizarEstadosBotones();
             } catch (error) {
                 console.error('Error al obtener la conversación:', error);
             }
         }
 
         async function handleExpertTurn(expertType) {
-            psychologistBtn.disabled = true;
-            spiritualGuideBtn.disabled = true;
+            btnPsicologo.disabled = true;
+            btnGuiaEspiritual.disabled = true;
 
             try {
                 let res;
-                if (!conversationHasInitialMessages) {
-                    initialMessageDiv.style.display = 'none';
+                if (!conversacionConMensajesIniciales) {
+                    divMensajeInicial.style.display = 'none';
 
-                    for (const msg of introMessages) {
+                    for (const msg of mensajesPredeterminados) {
                         mostrarIndicadorEscribiendo(expertType);
                         await new Promise(resolve => setTimeout(resolve, 1500));
                         ocultarIndicadorEscribiendo();
@@ -608,8 +598,7 @@
                             isSent: true
                         })
                     });
-
-                    conversationHasInitialMessages = true;
+                    conversacionConMensajesIniciales = true;
                 } else {
                     mostrarIndicadorEscribiendo(expertType);
                     res = await fetch(`http://localhost:5000/api/conversacion/${expertType}`);
@@ -620,30 +609,29 @@
                     console.error(`Error al obtener respuesta de ${expertType}:`, res.statusText);
                     return;
                 }
-
                 await new Promise(resolve => setTimeout(resolve, 1500));
                 ocultarIndicadorEscribiendo();
                 await res.json();
                 await fetchConversation();
+
             } catch (error) {
                 ocultarIndicadorEscribiendo();
                 console.error('Error al manejar el turno del experto:', error);
                 alert('Error al procesar el turno del experto.');
             } finally {
-                updateButtonStates();
+                actualizarEstadosBotones();
             }
         }
 
-
-        psychologistBtn.addEventListener('click', async () => {
+        btnPsicologo.addEventListener('click', async () => {
             await handleExpertTurn('psicologo');
         });
 
-        spiritualGuideBtn.addEventListener('click', async () => {
+        btnGuiaEspiritual.addEventListener('click', async () => {
             await handleExpertTurn('guia_espiritual');
         });
 
-        clearBtn.addEventListener('click', async () => {
+        btnLimpiarchat.addEventListener('click', async () => {
             if (!confirm('¿Estás seguro de que quieres borrar toda la conversación? Esta acción es irreversible.')) {
                 return;
             }
@@ -655,8 +643,8 @@
                 if (res.ok) {
                     chat.innerHTML = '';
                     lastSpeaker = null;
-                    conversationHasInitialMessages = false;
-                    updateButtonStates();
+                    conversacionConMensajesIniciales = false;
+                    actualizarEstadosBotones();
                     fetchConversation();
                     alert('Conversación borrada correctamente.');
                 } else {
@@ -685,38 +673,36 @@
                 align: "center"
             });
             y += 10;
-
             doc.setFontSize(10);
 
-            document.querySelectorAll('.message').forEach(msg => {
+            document.querySelectorAll('.mensaje').forEach(msg => {
                 const expertNameElement = msg.querySelector('strong');
                 let expertName = '';
-                let messageText = msg.textContent;
+                let mensajeText = msg.textContent;
 
                 if (expertNameElement) {
                     expertName = expertNameElement.textContent;
-                    messageText = msg.textContent.substring(expertName.length + 1).trim();
+                    mensajeText = msg.textContent.substring(expertName.length + 1).trim();
                 } else {
                     const emElement = msg.querySelector('em');
                     if (emElement) {
-                        messageText = emElement.textContent;
+                        mensajeText = emElement.textContent;
                     }
                 }
-
 
                 const fechaDiv = msg.querySelector('.fecha');
                 let fechaTexto = '';
                 if (fechaDiv) {
                     fechaTexto = ` (${fechaDiv.textContent})`;
 
-                    messageText = messageText.replace(fechaDiv.textContent, '').trim();
+                    mensajeText = mensajeText.replace(fechaDiv.textContent, '').trim();
                 }
 
                 let fullMessageLine = '';
                 if (expertName) {
-                    fullMessageLine = `${expertName} ${messageText}${fechaTexto}`;
+                    fullMessageLine = `${expertName} ${mensajeText}${fechaTexto}`;
                 } else {
-                    fullMessageLine = `${messageText}${fechaTexto}`;
+                    fullMessageLine = `${mensajeText}${fechaTexto}`;
                 }
 
                 const textLines = doc.splitTextToSize(fullMessageLine, doc.internal.pageSize.getWidth() - 2 * margin);
@@ -729,16 +715,12 @@
                 y += textLines.length * lineHeight;
                 y += 2;
             });
-
             doc.save('conversacion_expertos.pdf');
         });
-
-
         fetchConversation();
 
         function mostrarIndicadorEscribiendo(expertType) {
             ocultarIndicadorEscribiendo();
-
             const div = document.createElement('div');
             div.classList.add('typing-indicator');
             div.setAttribute('id', 'typing-indicator');
@@ -746,7 +728,6 @@
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
         }
-
 
         function ocultarIndicadorEscribiendo() {
             const indicador = document.getElementById('typing-indicator');
@@ -760,7 +741,7 @@
             audio.play().then(() => {
                 console.log("🔔 Sonido reproducido");
             }).catch(e => {
-                console.warn("⚠ No se pudo reproducir el sonido:", e.message);
+                console.warn("⚠ No se pudo reproducir el sonido:", e.mensaje);
             });
         }
     </script>

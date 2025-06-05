@@ -17,5 +17,4 @@ const esquemaMensaje = new mongoose.Schema({
 });
 
 const Conversacion = mongoose.model('Conversacion', esquemaMensaje);
-
 export default Conversacion;
