@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Diálogo entre Psicólogo y Guía Espiritual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --psicologo-bubble-start: #ffe0b2;
+            --psicologo-bubble-end: #ffcc80;
+            --guia-espiritual-bubble-start: #c8e6c9;
+            --guia-espiritual-end: #a5d6a7;
+            --sent-bubble-start: #bbdefb;
+            --sent-bubble-end: #90caf9;
+            --narrador-bg: #e8f5e9;
+
+            --chat-bg-color: #fcfcfc;
+
+            --button-psicologo: #ff9800;
+            --button-guia-espiritual: #4CAF50;
+            --button-clear: #e57373;
+            --button-pdf: #9e9e9e;
+
+            --text-color: #333333;
+            --light-text-color: #757575;
+            --border-color: #e0e0e0;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.12);
+            --shadow-strong: rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 2rem 1rem;
+            color: var(--text-color);
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .main-container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow-strong);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            max-width: 750px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5em;
+            color: #3f51b5;
+            margin-bottom: 0;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .title-container {
+            border-bottom: 2px solid #3f51b5;
+            width: 80%;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title-container h1 {
+            margin: 0;
+        }
+
+        #chat-wrapper {
+            width: 100%;
+            max-width: 650px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        #chat {
+            width: 100%;
+            height: 650px;
+            background-color: var(--chat-bg-color);
+            border-radius: 15px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            overflow-y: auto;
+            padding: 1.2rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            position: relative;
+            gap: 10px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        #chat::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chat::-webkit-scrollbar-track {
+            background: var(--chat-bg-color);
+            border-radius: 10px;
+        }
+
+        #chat::-webkit-scrollbar-thumb {
+            background: #bdbdbd;
+            border-radius: 10px;
+        }
+
+        #chat::-webkit-scrollbar-thumb:hover {
+            background: #9e9e9e;
+        }
+
+        .message {
+            margin-bottom: 0.5rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 18px;
+            max-width: 75%;
+            clear: both;
+            word-wrap: break-word;
+            box-shadow: 0 1px 3px var(--shadow-light);
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            position: relative;
+        }
+
+        .message:hover {
+            transform: scale(1.02);
+            box-shadow: 0 3px 8px var(--shadow-medium);
+        }
+
+        .psicologo {
+            background-image: linear-gradient(135deg, var(--psicologo-bubble-start), var(--psicologo-bubble-end));
+            align-self: flex-start;
+            text-align: left;
+            color: #263238;
+            border-bottom-left-radius: 5px;
+        }
+
+        .guia_espiritual {
+            background-image: linear-gradient(135deg, var(--guia-espiritual-bubble-start), var(--guia-espiritual-end));
+            align-self: flex-end;
+            text-align: right;
+            color: #212121;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.sent {
+            background-image: linear-gradient(to right, var(--sent-bubble-start), var(--sent-bubble-end));
+            color: #333333;
+            align-self: flex-start;
+            text-align: left;
+            border-bottom-left-radius: 5px;
+        }
+
+
+        .message strong {
+            font-weight: 700;
+            margin-right: 0.3em;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .message.sent strong {
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .narrador {
+            background-color: var(--narrador-bg);
+            color: var(--light-text-color);
+            align-self: center;
+            max-width: 90%;
+            text-align: center;
+            font-style: italic;
+            padding: 0.6rem 1rem;
+            border-radius: 15px;
+            margin-bottom: 0.8rem;
+            box-shadow: none;
+            transition: transform 0.15s ease-out;
+        }
+
+        .narrador:hover {
+            transform: scale(1.02);
+        }
+
+        #buttons {
+            max-width: 650px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        button {
+            flex: 1 1 calc(50% - 0.4rem);
+            padding: 0.9rem 1.2rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
+            user-select: none;
+            min-width: 200px;
+            font-size: 0.98rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #psychologistBtn {
+            background-color: var(--button-psicologo);
+        }
+
+        #psychologistBtn:hover:not(:disabled) {
+            background-color: #fb8c00;
+        }
+
+        #spiritualGuideBtn {
+            background-color: var(--button-guia-espiritual);
+        }
+
+        #spiritualGuideBtn:hover:not(:disabled) {
+            background-color: #388e3c;
+        }
+
+        #clearBtn {
+            background-color: #757575;
+        }
+
+        #clearBtn:hover:not(:disabled) {
+            background-color: #d32f2f;
+        }
+
+        #pdfBtn {
+            background-color: #757575;
+        }
+
+        #pdfBtn:hover:not(:disabled) {
+            background-color: #375b96;
+        }
+
+        .typing-indicator {
+            font-style: italic;
+            color: #888;
+            align-self: flex-start;
+            margin: 0.5rem 0;
+            padding: 0.5rem 1rem;
+            border-radius: 18px;
+            background-color: #e4e6eb;
+            max-width: fit-content;
+            animation: pulse 1.5s infinite;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .typing-indicator i {
+            margin-right: 0.5rem;
+            color: #546e7a;
+        }
+
+        @keyframes dots {
+            0% {
+                content: '';
+            }
+
+            33% {
+                content: '.';
+            }
+
+            66% {
+                content: '..';
+            }
+
+            100% {
+                content: '...';
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.02);
+                opacity: 0.95;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .fecha {
+            font-size: 0.65rem;
+            color: #a0a0a0;
+            margin-top: 0.2rem;
+            display: block;
+            padding-top: 5px;
+        }
+
+        .message.sent .fecha {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .psicologo .fecha {
+            text-align: right;
+        }
+
+        .guia_espiritual .fecha {
+            text-align: left;
+        }
+
+
+        #initialMessage {
+            text-align: center;
+            color: var(--light-text-color);
+            font-style: italic;
+            padding: 1rem;
+            margin: auto;
+            font-size: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        #initialMessage i {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #9e9e9e;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                max-width: 95%;
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .title-container {
+                width: 90%;
+            }
+
+            #chat-wrapper {
+                max-width: 95%;
+            }
+
+            #chat {
+                height: 550px;
+                padding: 1rem;
+            }
+
+            .message {
+                max-width: 85%;
+                padding: 0.7rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            #buttons {
+                max-width: 95%;
+            }
+
+            button {
+                flex: 1 1 calc(100% - 0.4rem);
+                font-size: 0.9rem;
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 1rem;
+                border-radius: 15px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .title-container {
+                width: 100%;
+            }
+
+            #chat {
+                height: 450px;
+                padding: 0.7rem;
+                border-radius: 10px;
+            }
+
+            .message {
+                max-width: 95%;
+                padding: 0.6rem 0.9rem;
+                font-size: 0.85rem;
+            }
+
+            button {
+                font-size: 0.8rem;
+                padding: 0.7rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="title-container">
+            <h1>Diálogo entre Expertos</h1>
+        </div>
+        <div id="chat-wrapper">
+            <div id="chat">
+                <div id="initialMessage">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>Presiona un botón para iniciar la conversación.</span>
+                </div>
+            </div>
+        </div>
+        <div id="buttons">
+            <button id="psychologistBtn"><i class="fas fa-brain"></i> Psicólogo Habla</button>
+            <button id="spiritualGuideBtn"><i class="fas fa-pray"></i> Guía Espiritual Habla</button>
+            <button id="clearBtn"><i class="fas fa-trash-alt"></i> Limpiar Chat</button>
+            <button id="pdfBtn"><i class="fas fa-file-pdf"></i> Exportar a PDF</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const chat = document.getElementById('chat');
+        const psychologistBtn = document.getElementById('psychologistBtn');
+        const spiritualGuideBtn = document.getElementById('spiritualGuideBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const pdfBtn = document.getElementById('pdfBtn');
+        const initialMessageDiv = document.getElementById('initialMessage');
+
+        let lastSpeaker = null;
+        let conversationHasInitialMessages = false;
+        const initialQuestionText = "¿Los sueños tienen un significado o son solo producto del cerebro?";
+
+        const introMessages = [
+            "Hola, ¿cómo has estado?",
+            "Quiero comentarte algo, hace poco hablé con un cliente que me hizo una pregunta muy interesante que me llevó tiempo responder.",
+            "Por ello, quisiera saber tu opinión sobre ella y me gustaría saber qué habrías respondido tú."
+        ];
+
+        function renderMessage(expert, message, timestamp = null, isSent = false) {
+            const div = document.createElement('div');
+            div.classList.add('message');
+
+            if (isSent) {
+                div.classList.add('sent');
+            } else {
+                div.classList.add(expert);
+            }
+
+            let fechaFormateada = '';
+            if (timestamp) {
+                const fecha = new Date(timestamp);
+                const dia = fecha.getDate().toString().padStart(2, '0');
+                const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+                const anio = fecha.getFullYear();
+                const hora = fecha.getHours().toString().padStart(2, '0');
+                const minutos = fecha.getMinutes().toString().padStart(2, '0');
+                fechaFormateada = `<div class="fecha">${dia}/${mes}/${anio} ${hora}:${minutos}</div>`;
+            }
+
+            if (expert === 'narrador') {
+                div.classList.add('narrador');
+                div.innerHTML = `<em>${message}</em>${fechaFormateada}`;
+            } else {
+                const expertName = expert === 'psicologo' ? 'Psicólogo' : 'Guía Espiritual';
+                div.innerHTML = `<strong>${expertName}:</strong> ${message}${fechaFormateada}`;
+            }
+
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+            reproducirSonido();
+        }
+
+        function updateButtonStates() {
+            if (lastSpeaker === 'psicologo') {
+                psychologistBtn.disabled = true;
+                spiritualGuideBtn.disabled = false;
+            } else if (lastSpeaker === 'guia_espiritual') {
+                psychologistBtn.disabled = false;
+                spiritualGuideBtn.disabled = true;
+            } else {
+                psychologistBtn.disabled = false;
+                spiritualGuideBtn.disabled = false;
+            }
+        }
+
+        async function fetchConversation() {
+            try {
+                const res = await fetch('http://localhost:5000/api/conversacion');
+                if (!res.ok) {
+                    console.error('Error al obtener la conversación:', res.statusText);
+                    return;
+                }
+                const data = await res.json();
+                chat.innerHTML = '';
+
+                if (data.length === 0) {
+                    initialMessageDiv.style.display = 'flex';
+                    chat.appendChild(initialMessageDiv);
+                    conversationHasInitialMessages = false;
+                } else {
+                    initialMessageDiv.style.display = 'none';
+                    conversationHasInitialMessages = true;
+                }
+
+                data.forEach(({
+                    experto,
+                    mensaje,
+                    fechaHora,
+                    isSent
+                }) => {
+                    renderMessage(experto, mensaje, fechaHora, isSent);
+                    lastSpeaker = experto;
+                });
+                updateButtonStates();
+            } catch (error) {
+                console.error('Error al obtener la conversación:', error);
+            }
+        }
+
+        async function handleExpertTurn(expertType) {
+            psychologistBtn.disabled = true;
+            spiritualGuideBtn.disabled = true;
+
+            try {
+                let res;
+                if (!conversationHasInitialMessages) {
+                    initialMessageDiv.style.display = 'none';
+
+                    for (const msg of introMessages) {
+                        mostrarIndicadorEscribiendo(expertType);
+                        await new Promise(resolve => setTimeout(resolve, 1500));
+                        ocultarIndicadorEscribiendo();
+                        renderMessage(expertType, msg, new Date().toISOString(), true);
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                    }
+
+                    mostrarIndicadorEscribiendo(expertType);
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    ocultarIndicadorEscribiendo();
+                    renderMessage(expertType, initialQuestionText, new Date().toISOString(), true);
+                    await new Promise(resolve => setTimeout(resolve, 500));
+
+                    res = await fetch(`http://localhost:5000/api/conversacion/${expertType}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            experto: expertType,
+                            mensaje: initialQuestionText,
+                            isSent: true
+                        })
+                    });
+
+                    conversationHasInitialMessages = true;
+                } else {
+                    mostrarIndicadorEscribiendo(expertType);
+                    res = await fetch(`http://localhost:5000/api/conversacion/${expertType}`);
+                }
+
+                if (!res.ok) {
+                    alert(`Error al obtener respuesta del ${expertType === 'psicologo' ? 'Psicólogo' : 'Guía Espiritual'}.`);
+                    console.error(`Error al obtener respuesta de ${expertType}:`, res.statusText);
+                    return;
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                ocultarIndicadorEscribiendo();
+                await res.json();
+                await fetchConversation();
+            } catch (error) {
+                ocultarIndicadorEscribiendo();
+                console.error('Error al manejar el turno del experto:', error);
+                alert('Error al procesar el turno del experto.');
+            } finally {
+                updateButtonStates();
+            }
+        }
+
+
+        psychologistBtn.addEventListener('click', async () => {
+            await handleExpertTurn('psicologo');
+        });
+
+        spiritualGuideBtn.addEventListener('click', async () => {
+            await handleExpertTurn('guia_espiritual');
+        });
+
+        clearBtn.addEventListener('click', async () => {
+            if (!confirm('¿Estás seguro de que quieres borrar toda la conversación? Esta acción es irreversible.')) {
+                return;
+            }
+            try {
+                const res = await fetch('http://localhost:5000/api/conversacion', {
+                    method: 'DELETE'
+                });
+
+                if (res.ok) {
+                    chat.innerHTML = '';
+                    lastSpeaker = null;
+                    conversationHasInitialMessages = false;
+                    updateButtonStates();
+                    fetchConversation();
+                    alert('Conversación borrada correctamente.');
+                } else {
+                    alert('Error limpiando chat.');
+                    console.error('Error clearing chat:', res.statusText);
+                }
+            } catch (error) {
+                console.error('Error clearing chat:', error);
+                alert('Error limpiando chat.');
+            }
+        });
+
+        pdfBtn.addEventListener('click', () => {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+
+            let y = 15;
+            const margin = 10;
+            const lineHeight = 7;
+            const pageHeight = doc.internal.pageSize.height;
+
+            doc.setFontSize(16);
+            doc.text("Historial de Diálogo entre Expertos", doc.internal.pageSize.getWidth() / 2, y, {
+                align: "center"
+            });
+            y += 10;
+
+            doc.setFontSize(10);
+
+            document.querySelectorAll('.message').forEach(msg => {
+                const expertNameElement = msg.querySelector('strong');
+                let expertName = '';
+                let messageText = msg.textContent;
+
+                if (expertNameElement) {
+                    expertName = expertNameElement.textContent;
+                    messageText = msg.textContent.substring(expertName.length + 1).trim();
+                } else {
+                    const emElement = msg.querySelector('em');
+                    if (emElement) {
+                        messageText = emElement.textContent;
+                    }
+                }
+
+
+                const fechaDiv = msg.querySelector('.fecha');
+                let fechaTexto = '';
+                if (fechaDiv) {
+                    fechaTexto = ` (${fechaDiv.textContent})`;
+
+                    messageText = messageText.replace(fechaDiv.textContent, '').trim();
+                }
+
+                let fullMessageLine = '';
+                if (expertName) {
+                    fullMessageLine = `${expertName} ${messageText}${fechaTexto}`;
+                } else {
+                    fullMessageLine = `${messageText}${fechaTexto}`;
+                }
+
+                const textLines = doc.splitTextToSize(fullMessageLine, doc.internal.pageSize.getWidth() - 2 * margin);
+
+                if (y + (textLines.length * lineHeight) > pageHeight - margin) {
+                    doc.addPage();
+                    y = margin;
+                }
+                doc.text(textLines, margin, y);
+                y += textLines.length * lineHeight;
+                y += 2;
+            });
+
+            doc.save('conversacion_expertos.pdf');
+        });
+
+
+        fetchConversation();
+
+        function mostrarIndicadorEscribiendo(expertType) {
+            ocultarIndicadorEscribiendo();
+
+            const div = document.createElement('div');
+            div.classList.add('typing-indicator');
+            div.setAttribute('id', 'typing-indicator');
+            div.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${ (expertType === 'psicologo' ? 'Psicólogo' : 'Guía Espiritual') } está escribiendo`;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+
+        function ocultarIndicadorEscribiendo() {
+            const indicador = document.getElementById('typing-indicator');
+            if (indicador) {
+                chat.removeChild(indicador);
+            }
+        }
+
+        function reproducirSonido() {
+            const audio = new Audio('notificacion.mp3');
+            audio.play().then(() => {
+                console.log("🔔 Sonido reproducido");
+            }).catch(e => {
+                console.warn("⚠ No se pudo reproducir el sonido:", e.message);
+            });
+        }
+    </script>
+</body>
+
+</html>
